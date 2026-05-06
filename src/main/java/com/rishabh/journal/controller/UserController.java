@@ -3,6 +3,7 @@ package com.rishabh.journal.controller;
 
 import com.rishabh.journal.entity.User;
 import com.rishabh.journal.service.UserService;
+import com.rishabh.journal.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,9 @@ public class UserController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private WeatherService weatherService;
 
 //    @GetMapping
 //    public List<User> getAll(){
@@ -68,6 +72,14 @@ public class UserController {
 
         userService.deleteById(userInDb.getId());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping
+    public ResponseEntity<?> greeting(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        return new ResponseEntity<>("hello " + username + " today feels like " + weatherService.getWeather("Indore").getCurrent().getTemperature(), HttpStatus.OK);
     }
 
 }
