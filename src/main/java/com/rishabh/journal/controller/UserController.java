@@ -79,7 +79,7 @@ public class UserController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
 
-        return new ResponseEntity<>("hello...  " + username + " today feels like " + weatherService.getWeather("Indore").getCurrent().getTemperature(), HttpStatus.OK);
+        return new ResponseEntity<>("hello...  " + username + " today feels like hoolalal " + weatherService.getWeather("Indore").getCurrent().getTemperature(), HttpStatus.OK);
     }
 
 }
