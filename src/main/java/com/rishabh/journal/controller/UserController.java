@@ -4,14 +4,17 @@ package com.rishabh.journal.controller;
 import com.rishabh.journal.entity.User;
 import com.rishabh.journal.service.UserService;
 import com.rishabh.journal.service.WeatherService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -80,6 +83,11 @@ public class UserController {
         String username = authentication.getName();
 
         return new ResponseEntity<>("hello " + username + " today feels like " + weatherService.getWeather("Indore").getCurrent().getTemperature(), HttpStatus.OK);
+    }
+
+    @Scheduled(cron = "0 * * * * *")
+    public void LoggingCronJobForGreeting(){
+        log.info("Cron job executed at: " + System.currentTimeMillis());
     }
 
 }
