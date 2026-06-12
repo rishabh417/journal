@@ -78,7 +78,7 @@ public class UserController {
     public ResponseEntity<?> greeting(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        System.out.println("checking git pr");
+        System.out.println("checking git pr using stash");
         return new ResponseEntity<>("hello...  " + username + " today feels like hoolalaal " + weatherService.getWeather("Indore").getCurrent().getTemperature(), HttpStatus.OK);
     }
 
